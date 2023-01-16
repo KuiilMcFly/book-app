@@ -6,11 +6,17 @@ import Result from './components/result';
 function App() {
   return (
     <div>
-      <Header/>
+      <div className="header">
+        <Header/>
+      </div>
+      
+      <div className="searchbar-box">
+        <SearchBar/>
+      </div>
 
-      <SearchBar/>
-
-      <Result/>
+      <div className="result-box">
+        <Result/>
+      </div>
       
     </div>
   );

@@ -1,0 +1,21 @@
+.header {
+  padding: 10px;
+  background-color: white;
+}
+.header div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 10px;
+}
+.header div .left-header img {
+  width: 50px;
+}
+.header div .right-header h1 {
+  color: black;
+  font-size: 30px;
+  margin-right: 10px;
+}
+.header div .right-header img {
+  width: 40px;
+}/*# sourceMappingURL=header.css.map */
