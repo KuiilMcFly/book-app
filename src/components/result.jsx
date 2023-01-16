@@ -1,7 +1,9 @@
+import '../components/componentsStyles/resultStyle/result.css';
+
 const Result = () => {
     return (
         <div>
-            <h1>Result</h1>
+            <h1>Risultati</h1>
         </div>
     )
 }
