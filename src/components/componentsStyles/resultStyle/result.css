@@ -5,4 +5,11 @@
 .result-box div h1 {
   color: black;
   font-size: 30px;
+}
+.result-box .results-container {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  justify-content: center;
 }/*# sourceMappingURL=result.css.map */
