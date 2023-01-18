@@ -10,7 +10,7 @@ const fakeData = [
 const Result = () => {
     const renderElement = () => {
         return fakeData.map((book) => {
-            return <SingleResult/>
+            return <SingleResult titolo={book.titolo} descrizione={book.descrizione}/>
         })
     }
     return (
@@ -18,7 +18,7 @@ const Result = () => {
             <h1>Risultati</h1>
 
             <div className='results-container'>
-                {renderElement}
+                {renderElement()}
             </div>
 
         </div>
