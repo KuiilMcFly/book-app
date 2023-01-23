@@ -1,28 +1,27 @@
-import '../components/componentsStyles/resultStyle/result.css';
-import SingleResult from './SingleResult';
+import "../components/componentsStyles/resultStyle/result.css";
+import SingleResult from "./SingleResult";
 
-const fakeData = [
-    {titolo: 'Libro 1', descrizione: 'lorem ipsumkoenfienoeigbnerjkgvnrklgnrkjgnbrjkgnrklgfnrklgnrikojgn'},
-    {titolo: 'Libro 2', descrizione: 'lorem ipsumkoenfienoeigbnerjkgvnrklgnrkjgnbrjkgnrklgfnrklgnrikojgn'},
-    {titolo: 'Libro 3', descrizione: 'lorem ipsumkoenfienoeigbnerjkgvnrklgnrkjgnbrjkgnrklgfnrklgnrikojgn'}
-]
+const Result = ({ data }) => {
+  console.log("dati da result", data.items);
+  const myData = data.items;
 
-const Result = () => {
-    const renderElement = () => {
-        return fakeData.map((book) => {
-            return <SingleResult titolo={book.titolo} descrizione={book.descrizione}/>
-        })
-    }
-    return (
-        <div>
-            <h1>Risultati</h1>
-
-            <div className='results-container'>
-                {renderElement()}
-            </div>
-
-        </div>
-    )
-}
+  return (
+    <div>
+      <h1 style={{paddingLeft: '30px', color: 'white', fontSize: '26px'}}>Risultati:</h1>
+   
+      <div className="results-container">
+        {myData
+          ? myData.map((book, index) => (
+              <SingleResult
+                key={index}
+                titolo={book.volumeInfo.title}
+                descrizione={book.volumeInfo.description}
+              />
+            ))
+          : "Nessun Risultato"}
+      </div>
+    </div>
+  );
+};
 
 export default Result;

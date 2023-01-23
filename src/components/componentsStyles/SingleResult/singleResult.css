@@ -1,4 +1,6 @@
-.result-box div .custom-result {
-  background-color: red;
-  padding: 50px;
+.custom-result {
+  padding: 30px;
+  width: 300px;
+  height: 400px;
+  background-color: rgb(212, 212, 173);
 }/*# sourceMappingURL=singleResult.css.map */

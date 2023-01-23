@@ -1,15 +1,6 @@
-.result-box {
-  padding: 40px;
-  background-color: white;
-}
-.result-box div h1 {
-  color: black;
-  font-size: 30px;
-}
-.result-box .results-container {
-  margin-top: 50px;
+.results-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 50px;
+  gap: 20px;
   justify-content: center;
 }/*# sourceMappingURL=result.css.map */
