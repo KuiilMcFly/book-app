@@ -1,11 +1,15 @@
 import './componentsStyles/SingleResult/singleResult.css';
 
-const SingleResult = ({titolo, descrizione}) => {
+const SingleResult = ({titolo, immagine}) => {
+    const cutTitle = titolo.slice(0,46);
     return (
         <div>
             <div className='custom-result'>
-                <h3>{titolo}</h3>
-                <p>{descrizione}</p>
+                <div style={{height: '70px'}}>
+                    <h3>{cutTitle}</h3>
+                </div>
+                <img src={immagine} alt="" style={{maxHeight: '300px'}}/>
+                
             </div>
         </div>
     )

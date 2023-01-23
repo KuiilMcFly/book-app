@@ -15,7 +15,9 @@ const Result = ({ data }) => {
               <SingleResult
                 key={index}
                 titolo={book.volumeInfo.title}
+                immagine={book.volumeInfo.imageLinks.thumbnail}
                 descrizione={book.volumeInfo.description}
+                
               />
             ))
           : "Nessun Risultato"}

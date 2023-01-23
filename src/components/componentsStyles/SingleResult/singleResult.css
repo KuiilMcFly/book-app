@@ -1,6 +1,16 @@
 .custom-result {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 30px;
-  width: 300px;
-  height: 400px;
+  width: 250px;
+  height: 340px;
   background-color: rgb(212, 212, 173);
+}
+.custom-result h3 {
+  font-size: 22px;
+  padding-top: 20px;
+}
+.custom-result img {
+  padding: 20px;
 }/*# sourceMappingURL=singleResult.css.map */
