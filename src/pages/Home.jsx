@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import '../style/style.css';
-import Header from '../components/header';
+
 //import SearchBar from './components/SearchBar';
 import Result from '../components/result';
 import axios from 'axios';
@@ -39,9 +39,6 @@ function App() {
 
   return (
     <div>
-      <div className="header">
-        <Header/>
-      </div>
       
       <div className="searchbar-box">
           <div>

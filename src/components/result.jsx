@@ -1,5 +1,7 @@
 import "../components/componentsStyles/resultStyle/result.css";
 import SingleResult from "./SingleResult";
+import {Link} from 'react-router-dom';
+
 
 const Result = ({ data }) => {
   console.log("dati da result", data.items);
@@ -11,14 +13,15 @@ const Result = ({ data }) => {
    
       <div className="results-container">
         {myData
-          ? myData.map((book, index) => (
+          ? myData.map((book) => (
+            <Link to={`Book/${book.id}`} style={{textDecoration: 'none', color: 'black', fontBold: 'Bolder'}}>
               <SingleResult
-                key={index}
+                key={book.id}
                 titolo={book.volumeInfo.title}
                 immagine={book.volumeInfo.imageLinks.thumbnail}
-                descrizione={book.volumeInfo.description}
-                
+                descrizione={book.volumeInfo.description} 
               />
+            </Link>
             ))
           : "Nessun Risultato"}
       </div>

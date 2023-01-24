@@ -1,14 +1,24 @@
-import Home from './pages/Home';
-import Book from './pages/Book';
+import Home from "./pages/Home";
+import Book from "./pages/Book";
+import MyBooks from "./pages/Mybooks";
+import {Routes, Route } from "react-router-dom";
+import Header from "./components/header";
+import "./components/componentsStyles/headerStyle/header.css"
 
 
 function App() {
   return (
     <div>
-      <Home/>
-      <Book/>
+      <div className="header">
+        <Header/>
+      </div>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/book" element={<Book/>}/>
+        <Route exact path="/MyBooks" element={<MyBooks/>}/>
+      </Routes>
     </div>
-)
+  );
 }
 
 export default App;
