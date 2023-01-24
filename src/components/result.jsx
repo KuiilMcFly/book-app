@@ -14,9 +14,9 @@ const Result = ({ data }) => {
       <div className="results-container">
         {myData
           ? myData.map((book) => (
-            <Link to={`Book/${book.id}`} style={{textDecoration: 'none', color: 'black', fontBold: 'Bolder'}}>
+            <Link key={book.id} to={`Book/${book.id}`} style={{textDecoration: 'none', color: 'black', fontBold: 'Bolder'}}>
               <SingleResult
-                key={book.id}
+                
                 titolo={book.volumeInfo.title}
                 immagine={book.volumeInfo.imageLinks.thumbnail}
                 descrizione={book.volumeInfo.description} 

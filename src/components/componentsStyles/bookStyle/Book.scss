@@ -1,0 +1,30 @@
+.book-informations {
+    padding: 50px;
+    .flex-book-box {
+        display: flex;
+        justify-content: space-around;
+        .book-description {
+            color: white;
+            h1 {
+                font-size: 40px;
+                padding-bottom: 10px;
+            }
+            p {
+                font-size: 22px;
+                padding-bottom: 10px;
+            }
+            h4 {
+
+            }
+        }
+        .bookImages {
+            width: 300px;
+            height: 300px;
+            border-color: solid 1px red;
+        }
+    }
+
+    .chapters-box {
+
+    }
+}
