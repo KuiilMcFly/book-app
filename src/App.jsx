@@ -4,6 +4,7 @@ import MyBooks from "./pages/Mybooks";
 import {Routes, Route } from "react-router-dom";
 import Header from "./components/header";
 import "./components/componentsStyles/headerStyle/header.css"
+import BookChapter from "./pages/BookChapter";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/book/:id" element={<Book/>}/>
         <Route exact path="/MyBooks" element={<MyBooks/>}/>
+        <Route exact path="/book/:id/chapter/:number" element={<BookChapter/>}/>
       </Routes>
     </div>
   );

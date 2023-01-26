@@ -2,29 +2,45 @@
     padding: 50px;
     .flex-book-box {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-around;
+        align-items: center;
+        margin: 0 100px;
+        
         .book-description {
             color: white;
+            width: 800px;
             h1 {
                 font-size: 40px;
-                padding-bottom: 10px;
+                padding-bottom: 20px;
             }
             p {
                 font-size: 22px;
-                padding-bottom: 10px;
+                padding-bottom: 15px;
             }
             h4 {
-
+                padding-bottom: 30px;
             }
         }
         .bookImages {
-            width: 300px;
-            height: 300px;
-            border-color: solid 1px red;
+            img{
+                width: 250px;
+                border: solid 5px white;
+            }      
         }
     }
 
     .chapters-box {
-
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        margin-top: 50px;
+        
+        
+        a {
+            min-width: 300px;
+            text-decoration: none;
+        }
     }
 }

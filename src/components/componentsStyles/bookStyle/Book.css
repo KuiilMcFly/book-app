@@ -3,21 +3,38 @@
 }
 .book-informations .flex-book-box {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
+  align-items: center;
+  margin: 0 100px;
 }
 .book-informations .flex-book-box .book-description {
   color: white;
+  width: 800px;
 }
 .book-informations .flex-book-box .book-description h1 {
   font-size: 40px;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 }
 .book-informations .flex-book-box .book-description p {
   font-size: 22px;
-  padding-bottom: 10px;
+  padding-bottom: 15px;
 }
-.book-informations .flex-book-box .bookImages {
-  width: 300px;
-  height: 300px;
-  border-color: solid 1px red;
+.book-informations .flex-book-box .book-description h4 {
+  padding-bottom: 30px;
+}
+.book-informations .flex-book-box .bookImages img {
+  width: 250px;
+  border: solid 5px white;
+}
+.book-informations .chapters-box {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+.book-informations .chapters-box a {
+  min-width: 300px;
+  text-decoration: none;
 }/*# sourceMappingURL=Book.css.map */
