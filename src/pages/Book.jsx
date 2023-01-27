@@ -34,6 +34,7 @@ function Book() {
   const renderChapters = () => {
      return chapterList.map((chapter, index) => {
       return <SingleChapter
+      bookName={bookData.title}
       key={chapter.id}
       bookID= {bookID}
       chapter={chapter} 
