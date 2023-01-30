@@ -1,14 +1,38 @@
-import { useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+import '../components/componentsStyles/bookChapterStyle/bookChapterStyle.css'
+import {useState} from 'react'
+import Takeaway from "../components/Takeaway";
+
+
 
 const BookChapter = () => {
-    const location = useLocation();
-    const {libro, capitolo} = location.state;
+    const params = useParams();
+    const [inputText, setInputText] = useState("");
+    const [takeawayList, setTakeawayList] = useState([]);
+
+    const addTakeaway = (e) => {
+       e.preventDefault(); 
+       setTakeawayList([...takeawayList, inputText]);
+    }
+    const handleInputChange = (e) => {
+        setInputText(e.target.value);
+    }
+    
 
     return (
-        <div>
+        <div className="container">
             <h1>
-                {libro} - Capitolo: {capitolo}
+                {params.id} - Capitolo: {params.number}
             </h1>
+
+            <form onSubmit={addTakeaway}>
+                <p>Aggiungi key takeaway</p>
+                <input type="text" value={inputText} onChange={handleInputChange} />
+            </form>
+
+            <div>
+              <Takeaway takeaways={takeawayList}/>
+            </div>
         </div>
     )
 }
