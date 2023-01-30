@@ -29,7 +29,7 @@ function Book() {
   }
   useEffect(() => {
     fetchBook();
-  }, []);
+  });
 
   const renderChapters = () => {
      return chapterList.map((chapter, index) => {

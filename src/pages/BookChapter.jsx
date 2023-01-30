@@ -1,4 +1,4 @@
-import { useParams, useLocation } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import '../components/componentsStyles/bookChapterStyle/bookChapterStyle.css'
 import {useState} from 'react'
 import Takeaway from "../components/Takeaway";
@@ -30,7 +30,7 @@ const BookChapter = () => {
                 <input type="text" value={inputText} onChange={handleInputChange} />
             </form>
 
-            <div>
+            <div className="takeaway">
               <Takeaway takeaways={takeawayList}/>
             </div>
         </div>

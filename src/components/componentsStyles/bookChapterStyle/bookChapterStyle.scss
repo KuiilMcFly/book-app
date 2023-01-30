@@ -9,4 +9,21 @@
         font-size: 40px;
     }
 
+    form {
+        p {
+            padding: 30px 0;
+            font-size: 23px;
+        }
+
+        input {
+            margin: 20px 0;
+        }
+    }
+
+    .takeaway {
+       font-size: 22px;
+       border: solid 1px white;
+       padding: 5px;
+    }
+
 }

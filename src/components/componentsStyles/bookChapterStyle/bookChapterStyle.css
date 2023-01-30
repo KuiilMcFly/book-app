@@ -8,4 +8,16 @@
 .container h1 {
   color: white;
   font-size: 40px;
+}
+.container form p {
+  padding: 30px 0;
+  font-size: 23px;
+}
+.container form input {
+  margin: 20px 0;
+}
+.container .takeaway {
+  font-size: 22px;
+  border: solid 1px white;
+  padding: 5px;
 }/*# sourceMappingURL=bookChapterStyle.css.map */
