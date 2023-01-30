@@ -5,17 +5,31 @@
     justify-content: center;
     padding: 30px;
     width: 250px;
-    height: 340px;
+    height: 400px;
     background-color: rgb(212, 212, 173);
+    align-items: center;
+    
 
     h3 {
         font-size: 22px;
         padding-top: 20px;
     }
 
-    img {
-        padding: 20px;
+    .imgBox {
+        display: flex;
+        justify-content: center;
+        img {
+            padding: 20px;
+            width: 200px;
+            
+        }
+        
         
     }
+        #plusmark {  
+            width: 50px;
+            padding-bottom: 10px; 
+        }
+    
 }
 

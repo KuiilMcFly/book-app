@@ -5,13 +5,23 @@
   justify-content: center;
   padding: 30px;
   width: 250px;
-  height: 340px;
+  height: 400px;
   background-color: rgb(212, 212, 173);
+  align-items: center;
 }
 .custom-result h3 {
   font-size: 22px;
   padding-top: 20px;
 }
-.custom-result img {
+.custom-result .imgBox {
+  display: flex;
+  justify-content: center;
+}
+.custom-result .imgBox img {
   padding: 20px;
+  width: 200px;
+}
+.custom-result #plusmark {
+  width: 50px;
+  padding-bottom: 10px;
 }/*# sourceMappingURL=singleResult.css.map */
