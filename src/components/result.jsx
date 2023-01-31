@@ -3,9 +3,13 @@ import SingleResult from "./SingleResult";
 
 
 
-const Result = ({ data }) => {
+const Result = ({ data, immagine }) => {
   console.log("dati da result", data.items);
   const myData = data.items;
+
+  function getImgPath(img){
+    return img ? img : '"https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Placeholder_book.svg/1200px-Placeholder_book.svg.png"';
+  }
 
   return (
     <div>
@@ -15,11 +19,14 @@ const Result = ({ data }) => {
         {myData
           ? myData.map((book) => (
             
+
+         
+
               <SingleResult
                 key={book.id}
                 id={book.id}
                 titolo={book.volumeInfo.title}
-                immagine={book.volumeInfo.imageLinks.thumbnail}
+                immagine={getImgPath(book.volumeInfo.imageLinks.thumbnail)}
                 descrizione={book.volumeInfo.description} 
               />
             
