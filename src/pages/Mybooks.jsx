@@ -1,33 +1,67 @@
-import { useEffect } from 'react';
-import axios from 'axios';
-
+import { useEffect, useState } from 'react';
+import Message from '../components/message';
+import {firebase} from '../components/Axios';
 import '../components/componentsStyles/MyBooksStyle/mybooks.css'
-import ListBook from '../components/ListBook';
+import '../components/componentsStyles/bookItem/bookItem.css'
+import {Link} from 'react-router-dom';
 
 function MyBooks() {
+
+  const [bookData, setBookData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     fetchBook();
   }, []);
 
   const fetchBook = async () => {
+    setLoading(true);
     try {
-      const response = await axios.get('https://book-takeaway-df65d-default-rtdb.europe-west1.firebasedatabase.app/booksData.json');
+      const response = await firebase.get();
       const bookList = [];
       for(let key in response.data) {
-        
+        bookList.push({
+          titolo: response.data[key].bookTitle,
+          id: response.data[key].bookId,
+          img: response.data[key].bookImg,
+        })
+        console.log('booklist', bookList)
       }
+      const uniqueValueBooks = [...new Set(bookList.map(JSON.stringify))].map(JSON.parse);
       console.log(response);
+      setBookData(uniqueValueBooks);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
+      setError(true);
     }
   }
+
+  const bookItem = (book) => {
+    return(
+      <Link style={{textDecoration: "none"}} to={`../Book/${book.id}`}>
+        <div key={book.id} className='bookTitle-box'>
+          <p>{book.titolo}</p>
+          <img src={book.img} alt="" />
+        </div>
+      </Link>
+    )
+  }
+
+    const ListBook = () => {
+    return bookData.map((item) => {
+     return bookItem(item)
+     })
+ }
 
     return (
       <div className='mybooks-title'>
         <h1>Libri salvati:</h1>
-        <ListBook key={ListBook}/>
 
+        {error ? <Message message="Errore di Network"/> : loading ? <Message message="Carico..."/> : <ListBook key={ListBook}/>}
+        
       </div>
   )
   }

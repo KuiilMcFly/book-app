@@ -26,7 +26,7 @@ const Result = ({ data, immagine }) => {
                 key={book.id}
                 id={book.id}
                 titolo={book.volumeInfo.title}
-                immagine={getImgPath(book.volumeInfo.imageLinks.thumbnail)}
+                immagine={getImgPath(book.volumeInfo.imageLinks?.thumbnail)}
                 descrizione={book.volumeInfo.description} 
               />
             

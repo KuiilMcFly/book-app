@@ -1,10 +1,11 @@
-import axios from 'axios';
 import { useState, useEffect} from 'react';
 import '../components/componentsStyles/bookStyle/Book.css';
 import {useParams} from 'react-router-dom'
 import SingleChapter from '../components/SingleChapter';
 import PlusIcon from '../images/add.png'
 import {v4 as uuidv4 } from 'uuid';
+import Message from '../components/message';
+import { googleBooks } from '../components/Axios';
 
 
 
@@ -14,6 +15,7 @@ function Book() {
 
   const [bookData, setBookData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [chapterList, setChaptersList] = useState([
     {id: uuidv4()},
     
@@ -22,14 +24,24 @@ function Book() {
 
 
   const fetchBook = async () => {
-    const bookData = await axios.get(`https://www.googleapis.com/books/v1/volumes/${bookID}`);
+    setLoading(true);
+    try {
+    const bookData = await googleBooks.get(`/${bookID}`);
     await setBookData(bookData.data.volumeInfo);
     setLoading(false);
+    setError(false);
     console.log(params.id);
-  }
+       
+    } catch (error) {
+      console.log(error);
+      setLoading(false)
+      setError(true);
+    }
+
+  };
   useEffect(() => {
     fetchBook();
-  });
+  }, [bookID]);
 
   const renderChapters = () => {
      return chapterList.map((chapter, index) => {
@@ -47,7 +59,8 @@ function Book() {
     setChaptersList([...chapterList, {id: uuidv4()}]);
   }
 
-    return loading ? <p>Carico</p> : (
+    return error ? <Message message="Errore di Network"/> :
+    loading ? <p>Carico...</p> : (
       <div className='book-informations'>
 
         <div className="flex-book-box">

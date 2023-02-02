@@ -1,9 +1,9 @@
 import {useState} from 'react';
 import '../style/style.css';
+import { googleBooks } from '../components/Axios';
 
 //import SearchBar from './components/SearchBar';
 import Result from '../components/result';
-import axios from 'axios';
 import '../components/componentsStyles/SearchbarStyle/searchbar.css'
 import Message from '../components/message';
 
@@ -12,15 +12,26 @@ function App() {
   const [data, setData] = useState([]);
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const fetchData = async ()  => {
-    if(inputText.trim() === "") {
-      return
+    setLoading(true);
+    try {
+      if(inputText.trim() === "") {
+        return
+      }
+      await setLoading(true);
+      const myData = await googleBooks.get(`/?q=${inputText}`);
+      await setData(myData.data);
+      await setLoading(false);
+      setError(false);
+      
+    } catch (error) {
+      setLoading(false);
+      setError(true);
+      console.log(error);
     }
-    await setLoading(true);
-    const myData = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${inputText}`);
-    await setData(myData.data);
-    await setLoading(false);
+    
   };
 
   const handleInput = (e) => {
@@ -47,7 +58,8 @@ function App() {
               <button onClick={fetchData}>Cerca</button>
           </div>
       </div>
-          {showResult()}
+          {error ? <Message message="Errore di Network"/> :
+    loading ? <p>Carico...</p> : showResult()}
     </div>
   );
 }

@@ -1,9 +1,10 @@
 import "./componentsStyles/SingleResult/singleResult.css";
 import plusMark from"../images/add.png";
 import { Link } from "react-router-dom";
-import axios from "axios";
+
 import Spinner from "./Loading";
 import { useState } from "react";
+import {firebase} from '../components/Axios';
 
 const SingleResult = ({ titolo, immagine, id}) => {
 
@@ -18,7 +19,7 @@ const SingleResult = ({ titolo, immagine, id}) => {
 
     const addBook = async () => {
       try {
-        const data = await axios.post('https://book-takeaway-df65d-default-rtdb.europe-west1.firebasedatabase.app/booksData.json',
+        const data = await firebase.post("",
        {
         bookId: id,
         bookTitle: titolo,
