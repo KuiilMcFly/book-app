@@ -1,15 +1,26 @@
 import "./componentsStyles/SingleResult/singleResult.css";
 import plusMark from"../images/add.png";
 import { Link } from "react-router-dom";
-
+import heart from"../images/heart.png";
 import Spinner from "./Loading";
 import { useState } from "react";
 import {firebase} from '../components/Axios';
+import { useEffect } from "react";
 
-const SingleResult = ({ titolo, immagine, id}) => {
+const SingleResult = ({ titolo, immagine, id , savedBooks}) => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    const getIs = savedBooks.includes(id);
+    if(getIs){
+      setIsFavorite(true);
+    }
+  },[savedBooks]);
+
+
     
   const cutTitle = titolo.slice(0, 46);
   const imgPath = immagine
@@ -18,6 +29,11 @@ const SingleResult = ({ titolo, immagine, id}) => {
 
 
     const addBook = async () => {
+      if(savedBooks.includes(id)){
+        alert('Questo libro è già nella tua libreria');
+        return
+      }
+
       try {
         const data = await firebase.post("",
        {
@@ -36,12 +52,7 @@ const SingleResult = ({ titolo, immagine, id}) => {
       } 
     }
 
-
-
-
-
-
-
+    const buttonColor = savedBooks.includes(id) ? 'grey' : 'green'
 
 
   return (
@@ -52,6 +63,10 @@ const SingleResult = ({ titolo, immagine, id}) => {
             <h3>{cutTitle}</h3>
           </div>
 
+          <div className="favorite-icon">
+            {isFavorite ? <img src={heart} alt="" /> : " "}
+          </div>
+
           <div className="imgBox">
             <img src={imgPath} alt="" style={{ maxHeight: "300px" }} />
           </div>
@@ -59,10 +74,10 @@ const SingleResult = ({ titolo, immagine, id}) => {
           
             {loading ? (<Spinner/>) :(
               <div style={{display:'flex', alignItems: 'center'}}>
-                <img onClick={addBook} id="plusmark" src={plusMark} alt="" />
+                <img onClick={addBook} id="plusmark" src={plusMark} alt="" style={{backgroundColor: buttonColor}} />
                 {error ? <p>errore di network</p>: null}
               </div>
-            )};
+            )}
             
       </div>
       

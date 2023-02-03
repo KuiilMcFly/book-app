@@ -21,10 +21,12 @@ function MyBooks() {
       const response = await firebase.get();
       const bookList = [];
       for(let key in response.data) {
+        console.log(key);
         bookList.push({
           titolo: response.data[key].bookTitle,
           id: response.data[key].bookId,
           img: response.data[key].bookImg,
+          key: key,
         })
         console.log('booklist', bookList)
       }

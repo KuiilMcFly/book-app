@@ -55,6 +55,10 @@ function Book() {
     });
   }
 
+  const createNewChapter = () => {
+    
+  }
+
   const addChapter = () => {
     setChaptersList([...chapterList, {id: uuidv4()}]);
   }

@@ -5,9 +5,16 @@
   justify-content: center;
   padding: 30px;
   width: 250px;
-  height: 400px;
+  height: 470px;
   background-color: rgb(212, 212, 173);
   align-items: center;
+}
+.custom-result img:hover {
+  transform: scale(1.1);
+  transition: ease 0.6s;
+}
+.custom-result .favorite-icon img {
+  width: 30px;
 }
 .custom-result h3 {
   font-size: 22px;
@@ -24,4 +31,6 @@
 .custom-result #plusmark {
   width: 50px;
   padding-bottom: 10px;
+  border-radius: 15px;
+  padding: 10px;
 }/*# sourceMappingURL=singleResult.css.map */
