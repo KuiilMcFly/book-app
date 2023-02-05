@@ -6,6 +6,8 @@ import PlusIcon from '../images/add.png'
 import {v4 as uuidv4 } from 'uuid';
 import Message from '../components/message';
 import { googleBooks } from '../components/Axios';
+import axios from 'axios';
+import { number } from 'prop-types';
 
 
 
@@ -13,7 +15,6 @@ function Book() {
   const params = useParams();
   const bookID = params.id;
   const location = useLocation();
-  console.log(location);
   const bookKey = location.state.bookKey;
   
   
@@ -22,6 +23,7 @@ function Book() {
   const [bookData, setBookData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [inputText, setInputText] = useState("");
   const [chapterList, setChaptersList] = useState([
     {id: uuidv4()},
     
@@ -34,6 +36,7 @@ function Book() {
     try {
     const bookData = await googleBooks.get(`/${bookID}`);
     await setBookData(bookData.data.volumeInfo);
+
     setLoading(false);
     setError(false);
     
@@ -45,29 +48,56 @@ function Book() {
     }
 
   };
+
   useEffect(() => {
     fetchBook();
+    fetchChapterData();
   }, [bookID]);
 
   const renderChapters = () => {
-     return chapterList.map((chapter, index) => {
+     return chapterList.map((index, key) => {
       return <SingleChapter
       bookName={bookData.title}
-      key={chapter.id}
+      key={key}
       bookID= {bookID}
-      chapter={chapter} 
       number={index + 1}
       />
     });
   }
 
-  const createNewChapter = () => {
+  const handleInputChange = (e) => {
+    setInputText(e.target.value);
+}
 
+  const createNewChapter = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`https://book-takeaway-df65d-default-rtdb.europe-west1.firebasedatabase.app/booksData/${bookKey}/chapters.json`, [inputText]);
+      console.log(response);
+      const newChapterList = [...chapterList, response.data.name];
+      setChaptersList(newChapterList);
+      setInputText("");
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  const addChapter = () => {
-    setChaptersList([...chapterList, {id: uuidv4()}]);
+  const fetchChapterData = async () => {
+    try {
+      const response = await axios.get(`https://book-takeaway-df65d-default-rtdb.europe-west1.firebasedatabase.app/booksData/${bookKey}/chapters.json`);
+      const myData = await response.data;
+      const chaptersList = [];
+      for(let key in myData){
+        chaptersList.push(key);
+      }
+      setChaptersList(chaptersList);
+    } catch (error) {
+      console.log(error);
+    }
   }
+
+
+  const nextChapterNumber = chapterList.length + 1;
 
     return error ? <Message message="Errore di Network"/> :
     loading ? <p>Carico...</p> : (
@@ -87,9 +117,12 @@ function Book() {
 
         <div className="chapters-box">
             {renderChapters()}
-            <button onClick={addChapter} style={{marginTop: '20px', padding: '6px'}}>
+            {/*<button onClick={createNewChapter} style={{marginTop: '20px', padding: '6px'}}>
               <img src={PlusIcon} alt="" style={{width: '30px'}} />
-            </button>
+    </button>*/}
+            <form  onSubmit={createNewChapter}>
+              <input onChange={handleInputChange} type="text" value={inputText} placeholder={`aggiungi takeaway al capitolo ${nextChapterNumber}`} />
+            </form>
         </div>
 
       </div>
