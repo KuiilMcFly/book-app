@@ -21,7 +21,6 @@ function MyBooks() {
       const response = await firebase.get();
       const bookList = [];
       for(let key in response.data) {
-        console.log(key);
         bookList.push({
           titolo: response.data[key].bookTitle,
           id: response.data[key].bookId,
@@ -33,6 +32,7 @@ function MyBooks() {
       const uniqueValueBooks = [...new Set(bookList.map(JSON.stringify))].map(JSON.parse);
       console.log(response);
       setBookData(uniqueValueBooks);
+      setBookData(bookList);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -43,7 +43,9 @@ function MyBooks() {
 
   const bookItem = (book) => {
     return(
-      <Link style={{textDecoration: "none"}} to={`../Book/${book.id}`}>
+      
+      <Link style={{textDecoration: "none"}} to={{pathname: `../Book/${book.id}`}} state={{ bookKey: book.id}} >
+        
         <div key={book.id} className='bookTitle-box'>
           <p>{book.titolo}</p>
           <img src={book.img} alt="" />
@@ -51,6 +53,7 @@ function MyBooks() {
       </Link>
     )
   }
+
 
     const ListBook = () => {
     return bookData.map((item) => {

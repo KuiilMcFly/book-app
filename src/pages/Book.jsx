@@ -1,6 +1,6 @@
 import { useState, useEffect} from 'react';
 import '../components/componentsStyles/bookStyle/Book.css';
-import {useParams} from 'react-router-dom'
+import {useLocation, useParams} from 'react-router-dom'
 import SingleChapter from '../components/SingleChapter';
 import PlusIcon from '../images/add.png'
 import {v4 as uuidv4 } from 'uuid';
@@ -11,7 +11,13 @@ import { googleBooks } from '../components/Axios';
 
 function Book() {
   const params = useParams();
-  const bookID = params.id
+  const bookID = params.id;
+  const location = useLocation();
+  console.log(location);
+  const bookKey = location.state.bookKey;
+  
+  
+  
 
   const [bookData, setBookData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -30,7 +36,7 @@ function Book() {
     await setBookData(bookData.data.volumeInfo);
     setLoading(false);
     setError(false);
-    console.log(params.id);
+    
        
     } catch (error) {
       console.log(error);
@@ -56,7 +62,7 @@ function Book() {
   }
 
   const createNewChapter = () => {
-    
+
   }
 
   const addChapter = () => {
