@@ -1,7 +1,8 @@
-import { useParams} from "react-router-dom";
+import { useParams, useLocation} from "react-router-dom";
 import '../components/componentsStyles/bookChapterStyle/bookChapterStyle.css'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import Takeaway from "../components/Takeaway";
+import axios from "axios";
 
 
 
@@ -10,12 +11,30 @@ const BookChapter = () => {
     const [inputText, setInputText] = useState("");
     const [takeawayList, setTakeawayList] = useState([]);
 
+    const location = useLocation();
+    const {chapterKey, capitolo, libro, bookKey} = location.state;
+    console.log(location)
+    console.log(chapterKey, 'HOOK');
+
+    useEffect(() => {
+        fetchBookTakeAways();
+    }, []);
+    
+
     const addTakeaway = (e) => {
        e.preventDefault(); 
        setTakeawayList([...takeawayList, inputText]);
     }
     const handleInputChange = (e) => {
         setInputText(e.target.value);
+    }
+
+    
+
+    const fetchBookTakeAways= async () => {
+     const takeAwayData = await axios.get(`https://book-takeaway-df65d-default-rtdb.europe-west1.firebasedatabase.app/booksData/${bookKey}/chapters/${chapterKey}.json`);
+     setTakeawayList(takeAwayData.data);
+     console.log(takeAwayData);
     }
     
 

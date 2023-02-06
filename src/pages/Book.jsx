@@ -11,11 +11,16 @@ import { number } from 'prop-types';
 
 
 
+
 function Book() {
   const params = useParams();
   const bookID = params.id;
+
+  
   const location = useLocation();
+  console.log(location);
   const bookKey = location.state.bookKey;
+  
   
   
   
@@ -55,15 +60,21 @@ function Book() {
   }, [bookID]);
 
   const renderChapters = () => {
-     return chapterList.map((index, key) => {
+    return chapterList.map((index, key) => {
+       const bookKey = location.state.bookKey;
       return <SingleChapter
       bookName={bookData.title}
       key={key}
+      chapterKey={key}
+      bookKey={bookKey}
       bookID= {bookID}
       number={index + 1}
       />
     });
   }
+ 
+  
+
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
@@ -83,6 +94,7 @@ function Book() {
   }
 
   const fetchChapterData = async () => {
+    
     try {
       const response = await axios.get(`https://book-takeaway-df65d-default-rtdb.europe-west1.firebasedatabase.app/booksData/${bookKey}/chapters.json`);
       const myData = await response.data;

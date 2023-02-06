@@ -44,7 +44,7 @@ function MyBooks() {
   const bookItem = (book) => {
     return(
       
-      <Link style={{textDecoration: "none"}} to={{pathname: `../Book/${book.id}`}} state={{ bookKey: book.id}} >
+      <Link style={{textDecoration: "none"}} state={{ bookKey: book.key}} to={{pathname: `../Book/${book.id}`}}  >
         
         <div key={book.id} className='bookTitle-box'>
           <p>{book.titolo}</p>
