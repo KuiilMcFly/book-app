@@ -9,12 +9,23 @@ import axios from "axios";
 const BookChapter = () => {
     const params = useParams();
     const [inputText, setInputText] = useState("");
-    const [takeawayList, setTakeawayList] = useState([]);
+    const [takeAwayList , setTakeAwayList] = useState([]);
 
     const location = useLocation();
-    const {chapterKey, capitolo, libro, bookKey} = location.state;
-    console.log(location)
-    console.log(chapterKey, 'HOOK');
+    const chapterKey = location.state.chapterKey;
+    console.log(location.state);
+
+
+
+    const fetchBookTakeAways= async () => {
+     const chiave = location.state.bookKey;
+     
+
+        const takeAwayData = await axios.get(`https://book-takeaway-df65d-default-rtdb.europe-west1.firebasedatabase.app/booksData/${chiave}/chapters/${chapterKey}.json`);
+        setTakeAwayList(takeAwayData.data);
+        console.log(takeAwayData);
+        };
+
 
     useEffect(() => {
         fetchBookTakeAways();
@@ -23,7 +34,8 @@ const BookChapter = () => {
 
     const addTakeaway = (e) => {
        e.preventDefault(); 
-       setTakeawayList([...takeawayList, inputText]);
+       console.log(takeAwayList);
+        setTakeAwayList([...takeAwayList, inputText]);
     }
     const handleInputChange = (e) => {
         setInputText(e.target.value);
@@ -31,13 +43,8 @@ const BookChapter = () => {
 
     
 
-    const fetchBookTakeAways= async () => {
-     const takeAwayData = await axios.get(`https://book-takeaway-df65d-default-rtdb.europe-west1.firebasedatabase.app/booksData/${bookKey}/chapters/${chapterKey}.json`);
-     setTakeawayList(takeAwayData.data);
-     console.log(takeAwayData);
-    }
-    
 
+    
     return (
         <div className="container">
             <h1>
@@ -50,7 +57,7 @@ const BookChapter = () => {
             </form>
 
             <div className="takeaway">
-              <Takeaway takeaways={takeawayList}/>
+               <Takeaway takeaways={takeAwayList}/> 
             </div>
         </div>
     )

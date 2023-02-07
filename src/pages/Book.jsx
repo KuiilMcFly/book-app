@@ -2,12 +2,11 @@ import { useState, useEffect} from 'react';
 import '../components/componentsStyles/bookStyle/Book.css';
 import {useLocation, useParams} from 'react-router-dom'
 import SingleChapter from '../components/SingleChapter';
-import PlusIcon from '../images/add.png'
 import {v4 as uuidv4 } from 'uuid';
 import Message from '../components/message';
 import { googleBooks } from '../components/Axios';
 import axios from 'axios';
-import { number } from 'prop-types';
+
 
 
 
