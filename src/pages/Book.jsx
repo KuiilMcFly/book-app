@@ -17,7 +17,7 @@ function Book() {
 
   
   const location = useLocation();
-  console.log(location);
+
   const bookKey = location.state.bookKey;
   
   
@@ -59,7 +59,7 @@ function Book() {
   }, [bookID]);
 
   const renderChapters = () => {
-    return chapterList.map((index, key) => {
+    return chapterList.map((key, index) => {
        const bookKey = location.state.bookKey;
       return <SingleChapter
       bookName={bookData.title}
@@ -67,8 +67,8 @@ function Book() {
       chapterKey={key}
       bookKey={bookKey}
       bookID= {bookID}
-      number={index + 1}
-      />
+      number={index+1}
+      /> 
     });
   }
  

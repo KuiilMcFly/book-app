@@ -8,7 +8,6 @@
   background: #f01414;
   background: linear-gradient(to right, #f01414 10%, rgba(240, 20, 20, 0) 42%);
   position: relative;
-  -webkit-animation: load3 1.4s infinite linear;
   animation: load3 1.4s infinite linear;
   transform: translateZ(0);
 }
@@ -36,15 +35,6 @@
   left: 0;
   bottom: 0;
   right: 0;
-}
-
-@-webkit-keyframes load3 {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
 @keyframes load3 {
   0% {
