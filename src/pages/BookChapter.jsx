@@ -18,33 +18,37 @@ const BookChapter = () => {
 
   const fetchBookTakeAways = async () => {
     try {
-        const takeAwayData = await axios.get(
-            `https://book-takeaway-df65d-default-rtdb.europe-west1.firebasedatabase.app/booksData/${chiave}/chapters/${chapterKey}.json`
-          );
-          setTakeAwayList(takeAwayData.data);
-          console.log(takeAwayData, 'TAKEAWAY DATA');
+      const takeAwayData = await axios.get(
+        `https://book-takeaway-df65d-default-rtdb.europe-west1.firebasedatabase.app/booksData/${chiave}/chapters/${chapterKey}.json`
+      );
+      setTakeAwayList(takeAwayData.data);
+      console.log(takeAwayData, "TAKEAWAY DATA");
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-    
+  }; 
+
+
+
+  const pushNewTakeaways = async (e) => {
+    e.preventDefault();
+    try {
+      setTakeAwayList((oldState) => [...oldState,inputText])
+      const response = await axios.put(
+        `https://book-takeaway-df65d-default-rtdb.europe-west1.firebasedatabase.app/booksData/${chiave}/chapters/${chapterKey}/.json`,
+        [...takeAwayList, inputText]
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     // console.log("questo è state " + location.state);
     fetchBookTakeAways();
-  }, [takeAwayList]);
+  }, []);
 
-  const pushNewTakeaways = async (e) => {
-    e.preventDefault();
-    try {
-        const response = await axios.put(`https://book-takeaway-df65d-default-rtdb.europe-west1.firebasedatabase.app/booksData/${chiave}/chapters/.json`, [...takeAwayList, inputText]);
-        console.log(response);
-    } catch(error) {
-        console.log(error);
-    }
-  }
-
- 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
   };
@@ -61,7 +65,8 @@ const BookChapter = () => {
       </form>
 
       <div className="takeaway">
-                <Takeaway takeaways={takeAwayList}/>  
+      {takeAwayList.map((takeaway) => <li>{takeaway}</li>)}
+        
       </div>
     </div>
   );
