@@ -18,7 +18,7 @@ function MyBooks() {
   const fetchBook = async () => {
     setLoading(true);
     try {
-      const response = await firebase.get();
+      const response = await firebase.get('booksData.json');
       const bookList = [];
       for(let key in response.data) {
         bookList.push({

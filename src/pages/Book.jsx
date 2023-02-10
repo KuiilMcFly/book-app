@@ -4,8 +4,8 @@ import {useLocation, useParams} from 'react-router-dom'
 import SingleChapter from '../components/SingleChapter';
 import {v4 as uuidv4 } from 'uuid';
 import Message from '../components/message';
-import { googleBooks } from '../components/Axios';
-import axios from 'axios';
+import { firebase, googleBooks } from '../components/Axios';
+
 
 
 
@@ -82,7 +82,7 @@ function Book() {
   const createNewChapter = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`https://book-takeaway-df65d-default-rtdb.europe-west1.firebasedatabase.app/booksData/${bookKey}/chapters.json`, [inputText]);
+      const response = await firebase.post(`booksData/${bookKey}/chapters.json`, [inputText]);
       console.log(response);
       const newChapterList = [...chapterList, response.data.name];
       setChaptersList(newChapterList);
@@ -95,7 +95,7 @@ function Book() {
   const fetchChapterData = async () => {
     
     try {
-      const response = await axios.get(`https://book-takeaway-df65d-default-rtdb.europe-west1.firebasedatabase.app/booksData/${bookKey}/chapters.json`);
+      const response = await firebase.get(`booksData/${bookKey}/chapters.json`);
       const myData = await response.data;
       const chaptersList = [];
       for(let key in myData){

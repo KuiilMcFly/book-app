@@ -15,7 +15,7 @@ const Result = ({ data }) => {
 
   const getSavedBooksID = async () => {
     try {
-      const response = await firebase.get();
+      const response = await firebase.get('booksData.json');
       const data = response.data;
       const allIDs = [];
       for(let key in data) {

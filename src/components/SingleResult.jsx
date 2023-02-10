@@ -35,7 +35,7 @@ const SingleResult = ({ titolo, immagine, id , savedBooks}) => {
       }
 
       try {
-        const data = await firebase.post("",
+        const data = await firebase.post("booksData.json",
        {
         bookId: id,
         bookTitle: titolo,

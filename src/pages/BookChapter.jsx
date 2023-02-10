@@ -1,9 +1,10 @@
-import { useParams, useLocation } from "react-router-dom";
+import {useLocation } from "react-router-dom";
 import "../components/componentsStyles/bookChapterStyle/bookChapterStyle.css";
-import Takeaway from "../components/Takeaway";
-import { useState, useEffect } from "react";
 
-import axios from "axios";
+import { useState, useEffect } from "react";
+import { firebase } from "../components/Axios";
+
+
 
 const BookChapter = () => {
   const [inputText, setInputText] = useState("");
@@ -18,8 +19,8 @@ const BookChapter = () => {
 
   const fetchBookTakeAways = async () => {
     try {
-      const takeAwayData = await axios.get(
-        `https://book-takeaway-df65d-default-rtdb.europe-west1.firebasedatabase.app/booksData/${chiave}/chapters/${chapterKey}.json`
+      const takeAwayData = await firebase.get(
+        `booksData/${chiave}/chapters/${chapterKey}.json`
       );
       setTakeAwayList(takeAwayData.data);
       console.log(takeAwayData, "TAKEAWAY DATA");
@@ -34,10 +35,11 @@ const BookChapter = () => {
     e.preventDefault();
     try {
       setTakeAwayList((oldState) => [...oldState,inputText])
-      const response = await axios.put(
-        `https://book-takeaway-df65d-default-rtdb.europe-west1.firebasedatabase.app/booksData/${chiave}/chapters/${chapterKey}/.json`,
+      const response = await firebase.put(
+        `booksData/${chiave}/chapters/${chapterKey}/.json`,
         [...takeAwayList, inputText]
       );
+      setInputText("");
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -62,10 +64,12 @@ const BookChapter = () => {
       <form onSubmit={pushNewTakeaways}>
         <p>Aggiungi key takeaway</p>
         <input type="text" value={inputText} onChange={handleInputChange} />
+        
       </form>
 
       <div className="takeaway">
       {takeAwayList.map((takeaway) => <li>{takeaway}</li>)}
+      
         
       </div>
     </div>
