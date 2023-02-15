@@ -1,6 +1,6 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import '../style/style.css';
-import { googleBooks } from '../components/Axios';
+import { googleBooks, firebase } from '../components/Axios';
 
 //import SearchBar from './components/SearchBar';
 import Result from '../components/result';
@@ -13,7 +13,11 @@ function App() {
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [savedIDs, setSavedIDs] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
 
+
+  //Prendere dati dei libri cercati dall'utente
   const fetchData = async ()  => {
     setLoading(true);
     try {
@@ -36,7 +40,58 @@ function App() {
 
   const handleInput = (e) => {
     setInputText(e.target.value);
+  };
+
+
+  //Prendere Id dei libri salvati
+  const getSavedBooksID = async () => {
+    try {
+      const response = await firebase.get('booksData.json');
+      const data = response.data;
+      const allIDs = [];
+      for(let key in data) {
+        allIDs.push(data[key].bookId);
+      }
+     setSavedIDs(allIDs);
+    } catch (error) {
+      console.log(error);
+      
+    }
   }
+
+  useEffect(() => {
+    getSavedBooksID();
+  }, [])
+
+
+  const addBook = async (savedBooks, id, titolo, immagine) => {
+    if(savedBooks.includes(id)){
+      alert('Questo libro è già nella tua libreria');
+      return
+    }
+
+    try {
+      const data = await firebase.post("booksData.json",
+     {
+      bookId: id,
+      bookTitle: titolo,
+      bookImg: immagine,
+    }); 
+    await getSavedBooksID();
+    console.log(data);
+    setLoading(false);
+    setError(false);
+
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      setError(true)
+    } 
+  };
+
+  
+ 
+  
 
   const showResult = () => {
     if(data.totalItems === 0) {
@@ -44,7 +99,7 @@ function App() {
     } else if(data.lenght === 0){
       return <Message message= "Cerca qualcosa"/>
     } else {
-      return loading ? <Message message= "carico..."/> : <Result data={data} />
+      return loading ? <Message message= "carico..."/> : <Result addBook={addBook} savedIDs={savedIDs} data={data} />
     }
   }
 

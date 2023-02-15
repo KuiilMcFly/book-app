@@ -3,54 +3,16 @@ import plusMark from"../images/add.png";
 import { Link } from "react-router-dom";
 import heart from"../images/heart.png";
 import Spinner from "./Loading";
-import { useState } from "react";
-import {firebase} from '../components/Axios';
-import { useEffect } from "react";
-
-const SingleResult = ({ titolo, immagine, id , savedBooks}) => {
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  useEffect(() => {
-    const getIs = savedBooks.includes(id);
-    if(getIs){
-      setIsFavorite(true);
-    }
-  },[savedBooks]);
 
 
-    
+const SingleResult = ({isFavorite, error, loading, titolo, immagine, id , savedBooks, addBook}) => {
+
   const cutTitle = titolo.slice(0, 46);
   const imgPath = immagine
     ? immagine
     : "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Placeholder_book.svg/1200px-Placeholder_book.svg.png";
 
 
-    const addBook = async () => {
-      if(savedBooks.includes(id)){
-        alert('Questo libro è già nella tua libreria');
-        return
-      }
-
-      try {
-        const data = await firebase.post("booksData.json",
-       {
-        bookId: id,
-        bookTitle: titolo,
-        bookImg: immagine,
-      }); 
-      console.log(data);
-      setLoading(false);
-      setError(false);
-
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-        setError(true)
-      } 
-    }
 
     const buttonColor = savedBooks.includes(id) ? 'grey' : 'green'
 
@@ -74,7 +36,7 @@ const SingleResult = ({ titolo, immagine, id , savedBooks}) => {
           
             {loading ? (<Spinner/>) :(
               <div style={{display:'flex', alignItems: 'center'}}>
-                <img onClick={addBook} id="plusmark" src={plusMark} alt="" style={{backgroundColor: buttonColor}} />
+                <img onClick={() => addBook(savedBooks, id, titolo, immagine)} id="plusmark" src={plusMark} alt="" style={{backgroundColor: buttonColor}} />
                 {error ? <p>errore di network</p>: null}
               </div>
             )}
