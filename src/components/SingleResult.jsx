@@ -58,7 +58,7 @@ const SingleResult = ({ titolo, immagine, id , savedBooks}) => {
   return (
     <div>
       <div className="custom-result">
-      <Link to={`Book/${id}`} style={{textDecoration: 'none', color: 'black', fontBold: 'Bolder'}}>
+      <Link to={`Book/${id}`} style={{textDecoration: 'none', color: 'black', fontBold: 'Bolder'}} state={{bookKey: id}}>
           <div style={{ height: "70px" }}>
             <h3>{cutTitle}</h3>
           </div>

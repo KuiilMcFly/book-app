@@ -18,6 +18,7 @@ function Book() {
   
   const location = useLocation();
 
+  console.log(location)
   const bookKey = location.state.bookKey;
   
   
@@ -39,7 +40,7 @@ function Book() {
     setLoading(true);
     try {
     const bookData = await googleBooks.get(`/${bookID}`);
-    await setBookData(bookData.data.volumeInfo);
+    setBookData(bookData.data.volumeInfo);
 
     setLoading(false);
     setError(false);
@@ -60,7 +61,7 @@ function Book() {
 
   const renderChapters = () => {
     return chapterList.map((key, index) => {
-       const bookKey = location.state.bookKey;
+   
       return <SingleChapter
       bookName={bookData.title}
       key={key}
