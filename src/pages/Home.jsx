@@ -6,6 +6,7 @@ import { googleBooks, firebase } from '../components/Axios';
 import Result from '../components/result';
 import '../components/componentsStyles/SearchbarStyle/searchbar.css'
 import Message from '../components/message';
+import { useSelector } from 'react-redux';
 
 function App() {
 
@@ -15,6 +16,10 @@ function App() {
   const [error, setError] = useState(false);
   const [savedIDs, setSavedIDs] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
+
+  const reduxData = useSelector(state => state);
+
+  console.log('dati da redux', reduxData);
 
 
   //Prendere dati dei libri cercati dall'utente
