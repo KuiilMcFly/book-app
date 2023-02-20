@@ -1,25 +1,26 @@
 import {useState, useEffect} from 'react';
 import '../style/style.css';
-import { googleBooks, firebase } from '../components/Axios';
-
+import {firebase } from '../components/Axios';
+import { fetchBookData } from '../store/actions/handleBookData';
 //import SearchBar from './components/SearchBar';
 import Result from '../components/result';
 import '../components/componentsStyles/SearchbarStyle/searchbar.css'
 import Message from '../components/message';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addNewBook } from '../store/actions/handleBookData';
 
 function App() {
 
-  const [data, setData] = useState([]);
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [savedIDs, setSavedIDs] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const reduxData = useSelector(state => state);
+  const data = useSelector(state => state.bookReducer.booksData);
 
-  console.log('dati da redux', reduxData);
+
+  const dispatch = useDispatch();
 
 
   //Prendere dati dei libri cercati dall'utente
@@ -30,8 +31,7 @@ function App() {
         return
       }
       await setLoading(true);
-      const myData = await googleBooks.get(`/?q=${inputText}`);
-      await setData(myData.data);
+      await dispatch(fetchBookData(inputText));
       await setLoading(false);
       setError(false);
       
@@ -72,6 +72,7 @@ function App() {
   const addBook = async (savedBooks, id, titolo, immagine) => {
     if(savedBooks.includes(id)){
       alert('Questo libro è già nella tua libreria');
+      dispatch(addNewBook('nuovo libro 1'));
       return
     }
 

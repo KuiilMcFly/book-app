@@ -1,4 +1,4 @@
-import * as actionTypes from './action';
+import * as actionTypes from '../actions/handleBookChapter';
 
 const initialState = {
  data: 'some data'
@@ -7,10 +7,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.FETCH_BOOK_DATA:
-            return initialState
-          
-    
+        case actionTypes.CREATE_NEW_CHAPTERS:
+            return {
+
+            }
+
         default:
             return state;
     }

@@ -123,7 +123,7 @@ function Book() {
           </div>
 
           <div className="bookImages">
-              <img src={bookData.imageLinks.thumbnail} alt="" />
+              <img src={bookData.imageLinks?.thumbnail} alt="" />
           </div>
         </div>
 
