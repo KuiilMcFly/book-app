@@ -1,14 +1,15 @@
 import {useLocation } from "react-router-dom";
 import "../components/componentsStyles/bookChapterStyle/bookChapterStyle.css";
-
+import { useSelector, useDispatch } from "react-redux";
+import { fetchTakeAways } from "../store/actions/handleBookTakeAways";
 import { useState, useEffect } from "react";
 import { firebase } from "../components/Axios";
+import { pushTakeAways } from "../store/actions/handleBookTakeAways";
 
 
 
 const BookChapter = () => {
   const [inputText, setInputText] = useState("");
-  const [takeAwayList, setTakeAwayList] = useState([]);
 
   const location = useLocation();
   const chapterKey = location.state.chapterKey;
@@ -17,33 +18,19 @@ const BookChapter = () => {
   const chiave = location.state.bookKey;
   // console.log(location.state);
 
+  const dispatch = useDispatch();
+  const takeAwayList = useSelector(state => state.takeAwaysReducer.takeAwayList);
+
   const fetchBookTakeAways = async () => {
-    try {
-      const takeAwayData = await firebase.get(
-        `booksData/${chiave}/chapters/${chapterKey}.json`
-      );
-      setTakeAwayList(takeAwayData.data);
-      console.log(takeAwayData, "TAKEAWAY DATA");
-    } catch (error) {
-      console.log(error);
-    }
+   dispatch(fetchTakeAways(chiave, chapterKey));
   }; 
 
 
 
   const pushNewTakeaways = async (e) => {
     e.preventDefault();
-    try {
-      setTakeAwayList((oldState) => [...oldState,inputText])
-      const response = await firebase.put(
-        `booksData/${chiave}/chapters/${chapterKey}/.json`,
-        [...takeAwayList, inputText]
-      );
-      setInputText("");
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(pushTakeAways(chiave, chapterKey, inputText));
+    setInputText("");
   };
 
   useEffect(() => {
