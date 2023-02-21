@@ -1,46 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import Message from '../components/message';
-import {firebase} from '../components/Axios';
 import '../components/componentsStyles/MyBooksStyle/mybooks.css'
 import '../components/componentsStyles/bookItem/bookItem.css'
 import {Link} from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchSavedBooks } from '../store/actions/handleBookData';
 
 function MyBooks() {
 
-  const [bookData, setBookData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+
+  const bookData = useSelector(state => state.bookReducer.savedBooks);
+  const loading = useSelector(state => state.bookReducer.loading);
+  const error = useSelector(state => state.bookReducer.error);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchBook();
-  }, []);
+    dispatch(fetchSavedBooks());
+  }, [dispatch]);
 
-  const fetchBook = async () => {
-    setLoading(true);
-    try {
-      const response = await firebase.get('booksData.json');
-      const bookList = [];
-      for(let key in response.data) {
-        bookList.push({
-          titolo: response.data[key].bookTitle,
-          id: response.data[key].bookId,
-          img: response.data[key].bookImg,
-          key: key,
-        })
-        console.log('booklist', bookList)
-      }
-      const uniqueValueBooks = [...new Set(bookList.map(JSON.stringify))].map(JSON.parse);
-      console.log(response);
-      setBookData(uniqueValueBooks);
-      setBookData(bookList);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-      setError(true);
-    }
-  }
-
+  
   const bookItem = (book) => {
     return(
       

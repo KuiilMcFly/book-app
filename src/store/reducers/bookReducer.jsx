@@ -5,6 +5,7 @@ const initialState = {
  savedIDs: [],
  loading: false,
  error: false,
+ savedBooks: [],
 
 }
 
@@ -27,6 +28,26 @@ const reducer = (state = initialState, action) => {
            return {
                ...state,
                booksData: action.booksData,
+               loading: false,
+               error: false,
+           }
+
+           case actionTypes.FETCH_SAVED_BOOKS_START:
+            return {
+                ...state,
+                loading: true,
+            }
+        case actionTypes.FETCH_SAVED_BOOKS_FAIL:
+            return {
+                ...state,
+                error: action.error,
+                loading: false,
+            }
+
+        case actionTypes.FETCH_SAVED_BOOKS_SUCCESS:
+           return {
+               ...state,
+               savedBooks: action.savedBooks,
                loading: false,
                error: false,
            }
