@@ -3,7 +3,6 @@ import "../components/componentsStyles/bookChapterStyle/bookChapterStyle.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchTakeAways } from "../store/actions/handleBookTakeAways";
 import { useState, useEffect } from "react";
-import { firebase } from "../components/Axios";
 import { pushTakeAways } from "../store/actions/handleBookTakeAways";
 
 
