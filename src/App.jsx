@@ -5,6 +5,7 @@ import {Routes, Route } from "react-router-dom";
 import Header from "./components/header";
 import "./components/componentsStyles/headerStyle/header.css"
 import BookChapter from "./pages/BookChapter";
+import Auth from "./pages/Authentication";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/book/:id" element={<Book/>}/>
         <Route exact path="/book/:id/chapter/:number" element={<BookChapter/>}/>
         <Route exact path="/MyBooks" element={<MyBooks/>}/>
+        <Route exact path="/auth" element={<Auth/>}/>
       </Routes>
     </div>
   );

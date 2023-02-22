@@ -14,6 +14,10 @@ const Header = () => {
 
             
             <div className="right-header">
+            <Link to="Auth">
+                <h1>Login</h1>
+            </Link>
+
             <Link to="MyBooks">
                 <h1>I miei Libri</h1>
             </Link>
