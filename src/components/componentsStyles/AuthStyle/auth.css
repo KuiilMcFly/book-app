@@ -4,7 +4,9 @@ form {
   align-items: center;
   gap: 30px;
   padding: 50px;
-  color: white;
+  color: black;
+  background-color: white;
+  margin-top: 20px;
 }
 form input {
   padding: 10px;
