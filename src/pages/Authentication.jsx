@@ -3,6 +3,8 @@ import "../components/componentsStyles/AuthStyle/auth.css"
 import MyButton from "../components/MyButton";
 import { useDispatch } from "react-redux";
 import { auth } from "../store/actions/handleAuth";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -12,6 +14,9 @@ const Auth = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isSignup, setIsSignup] = useState(true);
+
+    const navigate = useNavigate();
+    const token = useSelector(state => state.authReducer.token)
 
     const dispatch = useDispatch();
     
@@ -37,8 +42,13 @@ const Auth = () => {
         setPassword("");
     }
 
+        let shouldRedirect = null;
+        if(token) {
+            shouldRedirect = navigate("/")
+        }
     return (
         <div>
+            {shouldRedirect}
             <form onSubmit={handleSubmit}>
                 <div className="inputContainer">
                     <p>Email</p>

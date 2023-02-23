@@ -5,6 +5,7 @@ import '../components/componentsStyles/bookItem/bookItem.css'
 import {Link} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchSavedBooks } from '../store/actions/handleBookData';
+import filaBook from "../images/filabook.png"
 
 function MyBooks() {
 
@@ -12,6 +13,8 @@ function MyBooks() {
   const bookData = useSelector(state => state.bookReducer.savedBooks);
   const loading = useSelector(state => state.bookReducer.loading);
   const error = useSelector(state => state.bookReducer.error);
+  const token = useSelector(state => state.authReducer.token);
+
 
   const dispatch = useDispatch();
 
@@ -40,6 +43,14 @@ function MyBooks() {
      })
  }
 
+  if(!token) {
+    return (
+      <div className='no-login-box'>
+          <p className='no-login-allert'>Effettua il login per salvere i tuoi libri preferiti</p>
+          <img src={filaBook} alt="" />
+      </div>
+    )
+  }
     return (
       <div className='mybooks-title'>
         <h1>Libri salvati:</h1>

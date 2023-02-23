@@ -6,3 +6,20 @@
         padding: 50px;
     }
 }
+
+.no-login-box {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    gap: 100px;
+    .no-login-allert {
+        color: white;
+        font-size: 22px;
+    }
+    img {
+        width: 800px;
+    }
+}
