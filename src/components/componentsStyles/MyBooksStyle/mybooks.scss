@@ -18,8 +18,17 @@
     .no-login-allert {
         color: white;
         font-size: 22px;
+        border: solid 1px orange;
+        border-radius: 10px;
+        padding: 5px;
     }
     img {
         width: 800px;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    img {
+        width: 400px;
     }
 }
