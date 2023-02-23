@@ -24,6 +24,8 @@ export const auth = (email, password, isSignup) => {
                 returnSecureToken: true,
             })
             console.log(response.data);
+            localStorage.setItem('token', response.data.idToken);
+            localStorage.setItem('userId', response.data.localId);
             dispatch(AuthSuccess(response.data));
         } catch (error) {
             dispatch(AuthFail(error));
@@ -57,8 +59,25 @@ export const AuthStart = () => {
 
 
   export const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
     return {
         type: LOGOUT,
+    }
+  }
+
+
+  export const authCheck = () => {
+    return dispatch => {
+      const token = localStorage.getItem('token');
+      if(!token){
+        return;
+      }
+      const userId = localStorage.getItem('userId');
+      dispatch(AuthSuccess({
+        idToken: token,
+        localId: userId,
+      }))
     }
   }
 

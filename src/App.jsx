@@ -6,12 +6,21 @@ import Header from "./components/header";
 import "./components/componentsStyles/headerStyle/header.css"
 import BookChapter from "./pages/BookChapter";
 import Auth from "./pages/Authentication";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Logout from "./pages/Logout";
+import { useEffect } from "react";
+import { authCheck } from "./store/actions/handleAuth";
 
 
 function App() {
   const token = useSelector(state => state.authReducer.token);
+  const dispatch = useDispatch();
+
+  useEffect(()=> {
+    dispatch(authCheck());
+  }, [])
+
+
   return (
     <div>
       <div className="header">

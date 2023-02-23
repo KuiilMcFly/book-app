@@ -3,6 +3,7 @@ import plusMark from"../images/add.png";
 import { Link } from "react-router-dom";
 import heart from"../images/heart.png";
 import Spinner from "./Loading";
+import { useSelector } from "react-redux";
 
 
 const SingleResult = ({isFavorite, error, loading, titolo, immagine, id , savedBooks, addBook}) => {
@@ -14,8 +15,9 @@ const SingleResult = ({isFavorite, error, loading, titolo, immagine, id , savedB
 
 
 
-    const buttonColor = savedBooks.includes(id) ? 'grey' : 'green'
+    const buttonColor = savedBooks.includes(id) ? 'grey' : 'green';
 
+    const token = useSelector(state => state.authReducer.token);
 
   return (
     <div>
@@ -36,7 +38,7 @@ const SingleResult = ({isFavorite, error, loading, titolo, immagine, id , savedB
           
             {loading ? (<Spinner/>) :(
               <div style={{display:'flex', alignItems: 'center'}}>
-                <img onClick={() => addBook(savedBooks, id, titolo, immagine)} id="plusmark" src={plusMark} alt="" style={{backgroundColor: buttonColor}} />
+                {token ? <img onClick={() => addBook(savedBooks, id, titolo, immagine)} id="plusmark" src={plusMark} alt="" style={{backgroundColor: buttonColor}} /> : null}
                 {error ? <p>errore di network</p>: null}
               </div>
             )}
