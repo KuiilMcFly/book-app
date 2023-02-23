@@ -6,13 +6,16 @@ import Header from "./components/header";
 import "./components/componentsStyles/headerStyle/header.css"
 import BookChapter from "./pages/BookChapter";
 import Auth from "./pages/Authentication";
+import { useSelector } from "react-redux";
+import Logout from "./pages/Logout";
 
 
 function App() {
+  const token = useSelector(state => state.authReducer.token);
   return (
     <div>
       <div className="header">
-        <Header/>
+        <Header isAuthenticated={!token}/>
       </div>
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -20,6 +23,7 @@ function App() {
         <Route exact path="/book/:id/chapter/:number" element={<BookChapter/>}/>
         <Route exact path="/MyBooks" element={<MyBooks/>}/>
         <Route exact path="/auth" element={<Auth/>}/>
+        <Route exact path="/logout" element={<Logout/>}/>
       </Routes>
     </div>
   );

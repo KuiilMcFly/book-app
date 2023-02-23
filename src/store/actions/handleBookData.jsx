@@ -118,10 +118,10 @@ export const getSavedBooksIDs = () => {
   };
 };
 
-export const addNewBook = (id, titolo, immagine) => {
+export const addNewBook = (id, titolo, immagine, token) => {
   return async (dispatch) => {
     try {
-      const data = await firebase.post("booksData.json", {
+      const data = await firebase.post(`booksData.json?auth=${token}`, {
         bookId: id,
         bookTitle: titolo,
         bookImg: immagine,

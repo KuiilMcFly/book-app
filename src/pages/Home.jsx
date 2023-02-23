@@ -18,6 +18,8 @@ function App() {
   const savedIDs = useSelector(state => state.bookReducer.savedIDs);
   const error = useSelector(state => state.bookReducer.error);
   const loading = useSelector(state => state.bookReducer.loading);
+  const userToken = useSelector(state => state.authReducer.token);
+  
 
 
 
@@ -40,7 +42,7 @@ function App() {
       dispatch(addNewBook('nuovo libro 1'));
       return
     }
-    dispatch(addNewBook(id, titolo, immagine));
+    dispatch(addNewBook(id, titolo, immagine, userToken));
   };
 
   const showResult = () => {

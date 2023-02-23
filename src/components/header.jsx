@@ -3,7 +3,7 @@ import booksImg from "../images/book.png";
 import bookMark from "../images/bookmark.png"
 import {Link} from 'react-router-dom';
 
-const Header = () => {
+const Header = ({isAuthenticated}) => {
     return (
         <div>
             <Link to="/">
@@ -14,9 +14,11 @@ const Header = () => {
 
             
             <div className="right-header">
-            <Link to="Auth">
-                <h1>Login</h1>
-            </Link>
+            {isAuthenticated ? <Link to="auth">
+                <h1>Accedi</h1>
+            </Link> : <Link to="logout">
+                <h1>Disconnetti</h1>
+            </Link>}
 
             <Link to="MyBooks">
                 <h1>I miei Libri</h1>
